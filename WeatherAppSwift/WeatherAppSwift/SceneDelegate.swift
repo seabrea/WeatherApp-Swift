@@ -18,10 +18,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let firstNavi = UINavigationController(rootViewController: ShowViewController())
         firstNavi.viewControllers.first?.view.backgroundColor = .red
         firstNavi.tabBarItem.title = "First"
+        firstNavi.tabBarItem.image = UIImage(named: "home")
             
         let secondNavi = UINavigationController(rootViewController: UIViewController())
         secondNavi.viewControllers.first?.view.backgroundColor = .blue
         secondNavi.tabBarItem.title = "Second"
+        secondNavi.tabBarItem.image = UIImage(named: "personal")
             
         let tabbarViewController = TabBarController()
         tabbarViewController.viewControllers = [firstNavi, secondNavi]

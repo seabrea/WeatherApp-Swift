@@ -8,11 +8,11 @@
 
 import UIKit
 
+
 class ShowViewController: UIViewController {
     
-    var searchButton:UIButton?
+    var searchButton: UIButton?
     
-
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -26,10 +26,13 @@ class ShowViewController: UIViewController {
         view.addSubview(searchButton!)
         
         searchButton?.addTarget(self, action: #selector(onClickHandler(sender:)), for: .touchUpInside)
+
     }
     
     @objc func onClickHandler(sender: UIButton) {
-        navigationController?.pushViewController(DetailViewController(), animated: true)
+       
+        let detailViewController = DetailViewController()
+        navigationController?.pushViewController(detailViewController, animated: true)
     }
 
 }
