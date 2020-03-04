@@ -12,6 +12,7 @@ class DetailViewController: UIViewController {
 
     var tableView: UITableView?
     var dataSource = ["1","1","1","1","1","1","1","1","1","1","1"]
+    var bannerData = ["home","personal"]
     
     override func viewDidLoad() {
         
@@ -28,6 +29,10 @@ class DetailViewController: UIViewController {
         tableView = UITableView(frame: view.bounds, style: .plain)
         tableView?.delegate = self
         tableView?.dataSource = self
+        let headerView = BannerScrollView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 200))
+        headerView.refreshUI(data: bannerData)
+        tableView?.tableHeaderView = headerView
+        
         view.addSubview(tableView!)
     }
 }

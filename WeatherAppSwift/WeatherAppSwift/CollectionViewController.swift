@@ -24,20 +24,26 @@ class CollectionViewController: UIViewController {
 
     func configView() {
         
+//        let collectionViewLayout = WaterFallLayout()
+//        collectionViewLayout.miniLineSpacing = 20
+//        collectionViewLayout.miniItemSpacing = 20
+//        collectionViewLayout.edgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        
         let collectionViewLayout = UICollectionViewFlowLayout()
-        collectionViewLayout.itemSize = CGSize(width: 100,height: 100)
-        collectionViewLayout.minimumLineSpacing = 20
-        collectionViewLayout.minimumInteritemSpacing = 20
+        collectionViewLayout.itemSize = CGSize(width: 50, height: 50)
+        collectionViewLayout.minimumInteritemSpacing = 50
+        collectionViewLayout.minimumLineSpacing = 50
         
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: collectionViewLayout)
         collectionView?.delegate = self
         collectionView?.dataSource = self
         collectionView?.register(UICollectionViewCell.classForCoder(), forCellWithReuseIdentifier: "cell")
+        
         view.addSubview(collectionView!)
     }
 }
 
-extension CollectionViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension CollectionViewController: UICollectionViewDelegate, UICollectionViewDataSource, WaterFallLayoutDelegate {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 50
@@ -50,9 +56,11 @@ extension CollectionViewController: UICollectionViewDelegate, UICollectionViewDa
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        return CGSize(width: 100, height: 100)
+    func waterFall(layout: WaterFallLayout, heightForCellAtIndexPath: IndexPath) -> Float {
+        return 10
     }
-
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+    }
 }

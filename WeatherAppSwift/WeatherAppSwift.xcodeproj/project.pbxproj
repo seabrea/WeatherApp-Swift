@@ -17,6 +17,8 @@
 		94E929FC240D2679003D6B74 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E929FB240D2679003D6B74 /* DetailViewController.swift */; };
 		94E929FE240E369D003D6B74 /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E929FD240E369D003D6B74 /* CollectionViewController.swift */; };
 		94E92A00240E3812003D6B74 /* ExtensionTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E929FF240E3812003D6B74 /* ExtensionTools.swift */; };
+		94E92A02240F40C0003D6B74 /* WaterFallLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E92A01240F40C0003D6B74 /* WaterFallLayout.swift */; };
+		94E92A04240F7BF1003D6B74 /* BannerScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E92A03240F7BF1003D6B74 /* BannerScrollView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +46,8 @@
 		94E929FB240D2679003D6B74 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		94E929FD240E369D003D6B74 /* CollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
 		94E929FF240E3812003D6B74 /* ExtensionTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionTools.swift; sourceTree = "<group>"; };
+		94E92A01240F40C0003D6B74 /* WaterFallLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterFallLayout.swift; sourceTree = "<group>"; };
+		94E92A03240F7BF1003D6B74 /* BannerScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerScrollView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +99,8 @@
 				94E929FB240D2679003D6B74 /* DetailViewController.swift */,
 				94E929FD240E369D003D6B74 /* CollectionViewController.swift */,
 				94E929FF240E3812003D6B74 /* ExtensionTools.swift */,
+				94E92A01240F40C0003D6B74 /* WaterFallLayout.swift */,
+				94E92A03240F7BF1003D6B74 /* BannerScrollView.swift */,
 			);
 			path = WeatherAppSwift;
 			sourceTree = "<group>";
@@ -208,6 +214,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				94E92A02240F40C0003D6B74 /* WaterFallLayout.swift in Sources */,
 				94E929FE240E369D003D6B74 /* CollectionViewController.swift in Sources */,
 				94E929F8240D0EA9003D6B74 /* TabBarController.swift in Sources */,
 				94E929D6240D09D4003D6B74 /* AppDelegate.swift in Sources */,
@@ -215,6 +222,7 @@
 				94E92A00240E3812003D6B74 /* ExtensionTools.swift in Sources */,
 				94E929D8240D09D4003D6B74 /* SceneDelegate.swift in Sources */,
 				94E929FA240D232B003D6B74 /* ShowViewController.swift in Sources */,
+				94E92A04240F7BF1003D6B74 /* BannerScrollView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
