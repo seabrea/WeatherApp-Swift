@@ -20,6 +20,7 @@
 		94E92A02240F40C0003D6B74 /* WaterFallLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E92A01240F40C0003D6B74 /* WaterFallLayout.swift */; };
 		94E92A04240F7BF1003D6B74 /* BannerScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E92A03240F7BF1003D6B74 /* BannerScrollView.swift */; };
 		94E92A0624109083003D6B74 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E92A0524109083003D6B74 /* WebViewController.swift */; };
+		94E92A0D2410F997003D6B74 /* cityCode.plist in Resources */ = {isa = PBXBuildFile; fileRef = 94E92A0C2410F997003D6B74 /* cityCode.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +51,7 @@
 		94E92A01240F40C0003D6B74 /* WaterFallLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterFallLayout.swift; sourceTree = "<group>"; };
 		94E92A03240F7BF1003D6B74 /* BannerScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerScrollView.swift; sourceTree = "<group>"; };
 		94E92A0524109083003D6B74 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		94E92A0C2410F997003D6B74 /* cityCode.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = cityCode.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +93,7 @@
 		94E929D4240D09D4003D6B74 /* WeatherAppSwift */ = {
 			isa = PBXGroup;
 			children = (
+				94E92A072410F4A9003D6B74 /* Resource */,
 				94E929D5240D09D4003D6B74 /* AppDelegate.swift */,
 				94E929D7240D09D4003D6B74 /* SceneDelegate.swift */,
 				94E929DE240D09D9003D6B74 /* Assets.xcassets */,
@@ -115,6 +118,14 @@
 				94E929EE240D09D9003D6B74 /* Info.plist */,
 			);
 			path = WeatherAppSwiftTests;
+			sourceTree = "<group>";
+		};
+		94E92A072410F4A9003D6B74 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				94E92A0C2410F997003D6B74 /* cityCode.plist */,
+			);
+			path = Resource;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -200,6 +211,7 @@
 			files = (
 				94E929E2240D09D9003D6B74 /* LaunchScreen.storyboard in Resources */,
 				94E929DF240D09D9003D6B74 /* Assets.xcassets in Resources */,
+				94E92A0D2410F997003D6B74 /* cityCode.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -10,9 +10,9 @@ import UIKit
 
 class DetailViewController: UIViewController {
 
-    var tableView: UITableView?
-    var dataSource = ["1","1","1","1","1","1","1","1","1","1","1"]
+    var tableView: UITableView!
     var bannerData = ["home","personal"]
+    var dataSource: [NSDictionary]?
     
     override func viewDidLoad() {
         
@@ -26,35 +26,40 @@ class DetailViewController: UIViewController {
     
     func configView() {
         
+        let path = Bundle.main.path(forResource: "cityCode", ofType: "plist")
+        dataSource = NSArray(contentsOfFile: path!) as? [NSDictionary]
+        
         tableView = UITableView(frame: view.bounds, style: .plain)
-        tableView?.delegate = self
-        tableView?.dataSource = self
+        tableView.delegate = self
+        tableView.dataSource = self
         let headerView = BannerScrollView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 200))
         headerView.refreshUI(data: bannerData)
-        tableView?.tableHeaderView = headerView
+        tableView.tableHeaderView = headerView
         
-        view.addSubview(tableView!)
+        view.addSubview(tableView)
     }
 }
 
 extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dataSource.count
+        return dataSource?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if let cell = tableView.dequeueReusableCell(withIdentifier: "cell") {
-            cell.textLabel?.text = dataSource[indexPath.row]
-            cell.detailTextLabel?.text = "副"
+            let dic = dataSource?[indexPath.row]
+            cell.textLabel?.text = dic?["city_name"] as? String
+            cell.detailTextLabel?.text = dic?["city_code"] as? String
             cell.imageView?.image = UIImage(named: "personal")
             return cell
         }
         else {
             let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
-            cell.textLabel?.text = dataSource[indexPath.row]
-            cell.detailTextLabel?.text = "副"
+            let dic = dataSource?[indexPath.row]
+            cell.textLabel?.text = dic?["city_name"] as? String
+            cell.detailTextLabel?.text = dic?["city_code"] as? String
             cell.imageView?.image = UIImage(named: "personal")
             return cell
         }

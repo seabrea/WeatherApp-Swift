@@ -13,6 +13,7 @@ class WebViewController: UIViewController {
     
     var webView: WKWebView!
     var progressview:UIProgressView!
+    var observation: NSKeyValueObservation?
     
     deinit {
         logDealloc(className: self.classForCoder)
@@ -34,8 +35,6 @@ class WebViewController: UIViewController {
             webview.uiDelegate = self
             webview.navigationDelegate = self
             
-            webview.addObserver(self, forKeyPath: "estimatedProgress", options: NSKeyValueObservingOptions.new, context: nil)
-            
             return webview
         }()
         
@@ -48,6 +47,15 @@ class WebViewController: UIViewController {
 
         view.addSubview(webView)
         webView.addSubview(progressview)
+        
+        observation = webView.observe(\WKWebView.estimatedProgress, options: .new) { [weak self] (wkwebview, change) in
+            
+            guard let self = self else {
+                return
+            }
+            print("已经加载 \(change.newValue! * 100)%")
+            self.progressview.progress = Float(wkwebview.estimatedProgress)
+        }
     }
     
     func refreshWeb() {
@@ -67,15 +75,5 @@ extension WebViewController: WKUIDelegate, WKNavigationDelegate {
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         print("Load Finish")
-    }
-}
-
-extension WebViewController {
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        
-        if keyPath == "estimatedProgress" {
-            print("已经加载 \(webView.estimatedProgress * 100)%")
-            progressview.progress = Float(webView.estimatedProgress)
-        }
     }
 }
