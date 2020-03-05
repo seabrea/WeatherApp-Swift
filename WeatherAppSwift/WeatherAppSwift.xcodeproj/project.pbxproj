@@ -19,6 +19,7 @@
 		94E92A00240E3812003D6B74 /* ExtensionTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E929FF240E3812003D6B74 /* ExtensionTools.swift */; };
 		94E92A02240F40C0003D6B74 /* WaterFallLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E92A01240F40C0003D6B74 /* WaterFallLayout.swift */; };
 		94E92A04240F7BF1003D6B74 /* BannerScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E92A03240F7BF1003D6B74 /* BannerScrollView.swift */; };
+		94E92A0624109083003D6B74 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E92A0524109083003D6B74 /* WebViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +49,7 @@
 		94E929FF240E3812003D6B74 /* ExtensionTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionTools.swift; sourceTree = "<group>"; };
 		94E92A01240F40C0003D6B74 /* WaterFallLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterFallLayout.swift; sourceTree = "<group>"; };
 		94E92A03240F7BF1003D6B74 /* BannerScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerScrollView.swift; sourceTree = "<group>"; };
+		94E92A0524109083003D6B74 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +103,7 @@
 				94E929FF240E3812003D6B74 /* ExtensionTools.swift */,
 				94E92A01240F40C0003D6B74 /* WaterFallLayout.swift */,
 				94E92A03240F7BF1003D6B74 /* BannerScrollView.swift */,
+				94E92A0524109083003D6B74 /* WebViewController.swift */,
 			);
 			path = WeatherAppSwift;
 			sourceTree = "<group>";
@@ -217,6 +220,7 @@
 				94E92A02240F40C0003D6B74 /* WaterFallLayout.swift in Sources */,
 				94E929FE240E369D003D6B74 /* CollectionViewController.swift in Sources */,
 				94E929F8240D0EA9003D6B74 /* TabBarController.swift in Sources */,
+				94E92A0624109083003D6B74 /* WebViewController.swift in Sources */,
 				94E929D6240D09D4003D6B74 /* AppDelegate.swift in Sources */,
 				94E929FC240D2679003D6B74 /* DetailViewController.swift in Sources */,
 				94E92A00240E3812003D6B74 /* ExtensionTools.swift in Sources */,

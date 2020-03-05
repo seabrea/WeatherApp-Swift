@@ -10,7 +10,7 @@ import UIKit
 
 class CollectionViewController: UIViewController {
 
-    var collectionView: UICollectionView?
+    var collectionView: UICollectionView!
     
     override func viewDidLoad() {
         
@@ -35,9 +35,9 @@ class CollectionViewController: UIViewController {
         collectionViewLayout.minimumLineSpacing = 50
         
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: collectionViewLayout)
-        collectionView?.delegate = self
-        collectionView?.dataSource = self
-        collectionView?.register(UICollectionViewCell.classForCoder(), forCellWithReuseIdentifier: "cell")
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.register(UICollectionViewCell.classForCoder(), forCellWithReuseIdentifier: "cell")
         
         view.addSubview(collectionView!)
     }
@@ -61,6 +61,6 @@ extension CollectionViewController: UICollectionViewDelegate, UICollectionViewDa
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+        navigationController?.pushViewController(WebViewController(), animated: true)
     }
 }

@@ -41,6 +41,22 @@ class ShowViewController: UIViewController {
         navigationController?.pushViewController(detailViewController, animated: true)
     }
     
+    @objc func onClickRequestHandler() {
+        
+        let url = URL(string: "http://t.weather.sojson.com/api/weather/city/101030100")
+        var request = URLRequest(url: url!)
+        request.httpMethod = "Get"
+        
+        print("请求URL:",url?.description ?? "")
+        
+        let session = URLSession.shared
+        let task = session.dataTask(with: request) { (data, response, error) in
+            let dicStr = String(data: data ?? Data(), encoding: .utf8)
+            print("data: \(dicStr ?? "")")
+        }
+        task.resume()
+    }
+    
     func createLable() {
         
         let showTxt = UILabel(frame: CGRect(x: 10, y: 100, width: 200, height: 50))
@@ -86,6 +102,23 @@ class ShowViewController: UIViewController {
         view.addSubview(animationImageView)
         
         imageView.contentMode = .scaleAspectFit
+        
+        let keyframeAnimation = CAKeyframeAnimation(keyPath: "transform.scale")
+        keyframeAnimation.keyTimes = [0, 0.2, 1]
+        keyframeAnimation.values = [1, 2, 1]
+        keyframeAnimation.duration = 5
+        
+        let keyframeAnimationMove = CAKeyframeAnimation(keyPath: "transform.scale")
+        keyframeAnimationMove.keyTimes = [0, 0.2, 1]
+        keyframeAnimationMove.values = [1, 2, 1]
+        keyframeAnimationMove.beginTime = 5
+        keyframeAnimationMove.duration = 5
+        
+        let animationGroup = CAAnimationGroup()
+        animationGroup.duration = 10
+        animationGroup.animations = [keyframeAnimation, keyframeAnimationMove]
+        
+        animationImageView.layer.add(animationGroup, forKey: "animationGoup")
     }
     
     func creatGestureRecognizer() {
@@ -94,7 +127,7 @@ class ShowViewController: UIViewController {
         tapView.backgroundColor = .cyan
         view.addSubview(tapView)
         
-        let tapGR = UITapGestureRecognizer(target: self, action: #selector(onClickHandler(sender:)))
+        let tapGR = UITapGestureRecognizer(target: self, action: #selector(onClickRequestHandler))
         tapView.addGestureRecognizer(tapGR)
     }
 }
