@@ -14,15 +14,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-            
+        
         let firstNavi = UINavigationController(rootViewController: ShowViewController())
-        firstNavi.viewControllers.first?.view.backgroundColor = .red
-        firstNavi.tabBarItem.title = "First"
+        firstNavi.viewControllers.first?.view.backgroundColor = .white
+        firstNavi.tabBarItem.title = "天气显示"
         firstNavi.tabBarItem.image = UIImage(named: "home")
             
         let secondNavi = UINavigationController(rootViewController: UIViewController())
         secondNavi.viewControllers.first?.view.backgroundColor = .blue
-        secondNavi.tabBarItem.title = "Second"
+        secondNavi.tabBarItem.title = "个人展示"
         secondNavi.tabBarItem.image = UIImage(named: "personal")
             
         let tabbarViewController = TabBarController()

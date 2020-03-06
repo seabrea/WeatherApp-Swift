@@ -21,6 +21,8 @@
 		94E92A04240F7BF1003D6B74 /* BannerScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E92A03240F7BF1003D6B74 /* BannerScrollView.swift */; };
 		94E92A0624109083003D6B74 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E92A0524109083003D6B74 /* WebViewController.swift */; };
 		94E92A0D2410F997003D6B74 /* cityCode.plist in Resources */ = {isa = PBXBuildFile; fileRef = 94E92A0C2410F997003D6B74 /* cityCode.plist */; };
+		94E92A102411E6EF003D6B74 /* cityWeathDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E92A0F2411E6EF003D6B74 /* cityWeathDetail.swift */; };
+		94E92A1424123423003D6B74 /* WeathTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E92A1324123423003D6B74 /* WeathTool.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +54,9 @@
 		94E92A03240F7BF1003D6B74 /* BannerScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerScrollView.swift; sourceTree = "<group>"; };
 		94E92A0524109083003D6B74 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		94E92A0C2410F997003D6B74 /* cityCode.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = cityCode.plist; sourceTree = "<group>"; };
+		94E92A0F2411E6EF003D6B74 /* cityWeathDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cityWeathDetail.swift; sourceTree = "<group>"; };
+		94E92A112411E816003D6B74 /* test.geojson */ = {isa = PBXFileReference; lastKnownFileType = text; path = test.geojson; sourceTree = "<group>"; };
+		94E92A1324123423003D6B74 /* WeathTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeathTool.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +98,8 @@
 		94E929D4240D09D4003D6B74 /* WeatherAppSwift */ = {
 			isa = PBXGroup;
 			children = (
+				94E92A12241233FA003D6B74 /* Tools */,
+				94E92A0E2411E6C8003D6B74 /* Models */,
 				94E92A072410F4A9003D6B74 /* Resource */,
 				94E929D5240D09D4003D6B74 /* AppDelegate.swift */,
 				94E929D7240D09D4003D6B74 /* SceneDelegate.swift */,
@@ -126,6 +133,23 @@
 				94E92A0C2410F997003D6B74 /* cityCode.plist */,
 			);
 			path = Resource;
+			sourceTree = "<group>";
+		};
+		94E92A0E2411E6C8003D6B74 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				94E92A0F2411E6EF003D6B74 /* cityWeathDetail.swift */,
+				94E92A112411E816003D6B74 /* test.geojson */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		94E92A12241233FA003D6B74 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				94E92A1324123423003D6B74 /* WeathTool.swift */,
+			);
+			path = Tools;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -238,7 +262,9 @@
 				94E92A00240E3812003D6B74 /* ExtensionTools.swift in Sources */,
 				94E929D8240D09D4003D6B74 /* SceneDelegate.swift in Sources */,
 				94E929FA240D232B003D6B74 /* ShowViewController.swift in Sources */,
+				94E92A1424123423003D6B74 /* WeathTool.swift in Sources */,
 				94E92A04240F7BF1003D6B74 /* BannerScrollView.swift in Sources */,
+				94E92A102411E6EF003D6B74 /* cityWeathDetail.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
