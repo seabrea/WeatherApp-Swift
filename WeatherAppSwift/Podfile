@@ -1,0 +1,16 @@
+# Uncomment the next line to define a global platform for your project
+platform :ios, '9.0'
+
+target 'WeatherAppSwift' do
+
+  use_frameworks!
+
+  pod 'SDWebImage'
+  pod 'SnapKit'
+
+  target 'WeatherAppSwiftTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+end

@@ -98,7 +98,7 @@ class ShowViewController: UIViewController {
     
     func requestData(_ cityID: String) {
         
-        let url = URL(string: "http://t.weather.sojson.com/api/weather/city/\(cityID)")
+        let url = URL(string: DefineConst.WeatherRequestUrl + cityID)
         let session = URLSession.shared
         let task = session.dataTask(with: url!) { [weak self] (data, response, error) in
             

@@ -20,7 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         firstNavi.tabBarItem.title = "天气显示"
         firstNavi.tabBarItem.image = UIImage(named: "home")
             
-        let secondNavi = UINavigationController(rootViewController: UIViewController())
+        let secondNavi = UINavigationController(rootViewController: PersonalViewController())
         secondNavi.viewControllers.first?.view.backgroundColor = .blue
         secondNavi.tabBarItem.title = "个人展示"
         secondNavi.tabBarItem.image = UIImage(named: "personal")
