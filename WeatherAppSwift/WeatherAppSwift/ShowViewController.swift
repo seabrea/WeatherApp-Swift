@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import SnapKit
 
 class ShowViewController: UIViewController {
     
@@ -19,6 +19,11 @@ class ShowViewController: UIViewController {
         super.viewDidLoad()
         configData()
         configView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        super.viewWillAppear(animated)
     }
     
     func configData() {
@@ -44,6 +49,19 @@ class ShowViewController: UIViewController {
     }
     
     func createButton() {
+        
+//        let searchBar = SearchBar(frame: CGRect(x: 0, y: 0, width: view.bounds.width - 20, height: (navigationController?.navigationBar.bounds.height)!))
+//        navigationItem.titleView = {
+//            let frame = CGRect(x: 0, y: 0, width: view.bounds.width - 20, height: (navigationController?.navigationBar.bounds.height)!)
+//            let searchBar = SearchBar(frame: frame)
+//            let view = UIView(frame: frame)
+//            view.addSubview(searchBar)
+//            return view
+//        }()
+        
+        let frame = CGRect(x: 0, y: 300, width: view.bounds.width - 20, height: (navigationController?.navigationBar.bounds.height)!)
+        let searchBar = SearchBar(frame: frame)
+        view.addSubview(searchBar)
         
         searchButton = {
             let btn = UIButton(frame: CGRect(x: view.bounds.width/2 - 100, y: view.bounds.height/2 + 100, width: 200, height: 50))
@@ -77,19 +95,15 @@ class ShowViewController: UIViewController {
         showTxt.lineBreakMode = .byTruncatingTail
         view.addSubview(showTxt)
         
-        let nextLable = UILabel(frame: CGRect(x: 210, y: 100, width: 0, height: 0))
-        nextLable.text = "下一段话语"
-        nextLable.sizeToFit()
-        nextLable.textColor = .orange
-        nextLable.backgroundColor = .blue
-        view.addSubview(nextLable)
+        let inputFeild = UITextField(frame: CGRect(x: 10, y: 150, width: 200, height: 50))
+        inputFeild.backgroundColor = .orange
+        inputFeild.placeholder = "请输入内容"
+        view.addSubview(inputFeild)
         
-        let finalLabel = UILabel(frame: CGRect(x: 210 + nextLable.bounds.width, y: 100, width: 0, height: 0))
-        finalLabel.text = "结束话题"
-        finalLabel.textColor = .orange
-        finalLabel.backgroundColor = .green
-        finalLabel.sizeToFit()
-        view.addSubview(finalLabel)
+        let textView = UITextView(frame: CGRect(x: 10, y: 200, width: 200, height: 100))
+        textView.text = "红红火火恍恍惚惚，红红火火恍恍惚惚，红红火火恍恍惚惚，红红火火恍恍惚惚，红红火火恍恍惚惚，红红火火恍恍惚惚，红红火火恍恍惚惚，红红火火恍恍惚惚，红红火火恍恍惚惚，红红火火恍恍惚惚，红红火火恍恍惚惚，红红火火恍恍惚惚"
+        textView.backgroundColor = .yellow
+        view.addSubview(textView)
     }
     
     func refreshContent(_ model: CityDetailData) {
