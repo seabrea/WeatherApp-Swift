@@ -13,4 +13,8 @@ extension UIViewController {
     func logDealloc(className: AnyClass) {
         print("\(className) 已销毁")
     }
+    
+    func cancelCurViewControllerRequst() {
+        RequestManager.shared.cancelRequest()
+    }
 }

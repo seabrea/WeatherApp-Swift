@@ -5,8 +5,8 @@ target 'WeatherAppSwift' do
 
   use_frameworks!
 
-  pod 'SDWebImage'
   pod 'SnapKit'
+  pod 'Kingfisher'
 
   target 'WeatherAppSwiftTests' do
     inherit! :search_paths
