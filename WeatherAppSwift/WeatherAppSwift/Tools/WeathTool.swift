@@ -7,12 +7,21 @@
 //
 
 import UIKit
+import AdSupport
 
 enum DefineConst {
     static let DefaultCityCode = "defaultCityCode"
     static let TestMap4Url = "http://vfx.mtime.cn/Video/2019/03/19/mp4/190319212559089721.mp4"
     static let TestImageUrl = "https://i0.hdslb.com/bfs/article/32d57fcafe36df2896d47be0031b33ab8f46eaad.jpg"
-    static let WeatherRequestUrl = "http://t.weather.sojson.com/api/weather/city/"
+    
+    static let WScreen = UIScreen.main.bounds.width
+    static let HScreen = UIScreen.main.bounds.height
+    
+    static let KeyWindow = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
+    
+    enum TestString {
+        static let TestUITextViewContent = "红红火火恍恍惚惚，红红火火恍恍惚惚，红红火火恍恍惚惚，红红火火恍恍惚惚，红红火火恍恍惚惚，红红火火恍恍惚惚，红红火火恍恍惚惚，红红火火恍恍惚惚，红红火火恍恍惚惚，红红火火恍恍惚惚，红红火火恍恍惚惚，红红火火恍恍惚惚"
+    }
 }
 
 class WeathTool {
@@ -37,5 +46,14 @@ class WeathTool {
         }
         
         return defaultCode as! String
+    }
+    
+    open class func UUIDString() -> String {
+        
+        let manager = ASIdentifierManager.shared()
+        if manager.isAdvertisingTrackingEnabled {
+            return ASIdentifierManager.shared().advertisingIdentifier.uuidString
+        }
+        return "0"
     }
 }

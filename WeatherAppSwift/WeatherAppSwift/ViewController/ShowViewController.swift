@@ -13,17 +13,13 @@ class ShowViewController: UIViewController {
     
     var searchButton: UIButton!
     var showTxt: UILabel!
+    var textView: UITextView!
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
         configData()
         configView()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        
-        super.viewWillAppear(animated)
     }
     
     func configData() {
@@ -43,24 +39,15 @@ class ShowViewController: UIViewController {
     }
     
     func configView() {
-        
         createLable()
         createButton()
     }
     
     func createButton() {
         
-//        let searchBar = SearchBar(frame: CGRect(x: 0, y: 0, width: view.bounds.width - 20, height: (navigationController?.navigationBar.bounds.height)!))
-//        navigationItem.titleView = {
-//            let frame = CGRect(x: 0, y: 0, width: view.bounds.width - 20, height: (navigationController?.navigationBar.bounds.height)!)
-//            let searchBar = SearchBar(frame: frame)
-//            let view = UIView(frame: frame)
-//            view.addSubview(searchBar)
-//            return view
-//        }()
-        
-        let frame = CGRect(x: 0, y: 300, width: view.bounds.width - 20, height: (navigationController?.navigationBar.bounds.height)!)
+        let frame = CGRect(x: 10, y: 400, width: view.bounds.width - 20, height: (navigationController?.navigationBar.bounds.height)!)
         let searchBar = SearchBar(frame: frame)
+        searchBar.delegate = self
         view.addSubview(searchBar)
         
         searchButton = {
@@ -77,11 +64,7 @@ class ShowViewController: UIViewController {
         searchButton.addTarget(self, action: #selector(onClickHandler(sender:)), for: .touchUpInside)
     }
     
-    @objc func onClickHandler(sender: UIButton) {
-        
-        let detailViewController = DetailViewController()
-        navigationController?.pushViewController(detailViewController, animated: true)
-    }
+    
     
     func createLable() {
         
@@ -100,21 +83,30 @@ class ShowViewController: UIViewController {
         inputFeild.placeholder = "请输入内容"
         view.addSubview(inputFeild)
         
-        let textView = UITextView(frame: CGRect(x: 10, y: 200, width: 200, height: 100))
-        textView.text = "红红火火恍恍惚惚，红红火火恍恍惚惚，红红火火恍恍惚惚，红红火火恍恍惚惚，红红火火恍恍惚惚，红红火火恍恍惚惚，红红火火恍恍惚惚，红红火火恍恍惚惚，红红火火恍恍惚惚，红红火火恍恍惚惚，红红火火恍恍惚惚，红红火火恍恍惚惚"
+        textView = UITextView(frame: CGRect(x: 10, y: 200, width: 200, height: 100))
+        textView.text = DefineConst.TestString.TestUITextViewContent
         textView.backgroundColor = .yellow
         view.addSubview(textView)
     }
     
-    func refreshContent(_ model: CityDetailData) {
-        showTxt.text = model.message
+}
+
+// 事件处理
+extension ShowViewController {
+    
+    @objc func onClickHandler(sender: UIButton) {
+        
+        let detailViewController = DetailViewController()
+        navigationController?.pushViewController(detailViewController, animated: true)
     }
+}
+
+// MARK: 网络请求
+extension ShowViewController {
     
     func requestData(_ cityID: String) {
         
-        let url = URL(string: DefineConst.WeatherRequestUrl + cityID)
-        let session = URLSession.shared
-        let task = session.dataTask(with: url!) { [weak self] (data, response, error) in
+        RequestManager.shared.cityWeathDetailRequest(cityID) { [weak self] (data, error) -> (Void) in
             
             guard let self = self else {
                 return
@@ -124,18 +116,31 @@ class ShowViewController: UIViewController {
                 return
             }
             
-            var resultModel: CityDetailData?
             do {
-                resultModel = try JSONDecoder().decode(CityDetailData.self, from: data!)
+                let resultModel = try JSONDecoder().decode(CityDetailData.self, from: data!)
+                self.refreshContent(resultModel)
             }
             catch {
-                fatalError()
+                fatalError("JSONDecoder decode error !")
             }
-            
-            DispatchQueue.main.async {
-                self.refreshContent(resultModel!)
-            } 
         }
-        task.resume()
+    }
+    
+    func refreshContent(_ model: CityDetailData) {
+        showTxt.text = model.message
+        textView.text = model.message
+    }
+}
+
+extension ShowViewController: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        CommentManager.shared.showCommentInputView()
+        return false
     }
 }
