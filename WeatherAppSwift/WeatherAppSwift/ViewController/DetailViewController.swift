@@ -8,11 +8,18 @@
 
 import UIKit
 
+@objc protocol DetailViewControllerProtocol {
+    
+    func selectedCity(code: String);
+}
+
 class DetailViewController: UIViewController {
 
     var tableView: UITableView!
     var bannerData = ["home","personal"]
     var dataSource: [NSDictionary]?
+    
+    weak var delegate: DetailViewControllerProtocol?
     
     override func viewDidLoad() {
         
@@ -26,8 +33,7 @@ class DetailViewController: UIViewController {
     
     func configView() {
         
-        let path = Bundle.main.path(forResource: "cityCode", ofType: "plist")
-        dataSource = NSArray(contentsOfFile: path!) as? [NSDictionary]
+        dataSource = CityPlistManger.shared.plist
         
         tableView = UITableView(frame: view.bounds, style: .plain)
         tableView.delegate = self
@@ -66,14 +72,23 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100.0
+        return 50
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         tableView.deselectRow(at: indexPath, animated: true)
         
-        let collectionView = CollectionViewController()
-        navigationController?.pushViewController(collectionView, animated: true)
+        let cityDic = dataSource?[indexPath.row]
+        
+        guard let cityCode = (cityDic?["city_code"] as? NSNumber)?.stringValue else {
+            return
+        }
+        
+        if delegate != nil {
+            
+            delegate?.selectedCity(code: cityCode)
+            dismiss(animated: true, completion: nil)
+        }
     }
 }

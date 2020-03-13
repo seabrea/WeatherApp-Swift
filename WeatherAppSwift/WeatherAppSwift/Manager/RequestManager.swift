@@ -121,7 +121,7 @@ extension RequestManager {
         
         let url = URL(string: urlString)
         
-        let request = URLRequest(url: url!, cachePolicy: .returnCacheDataElseLoad, timeoutInterval: 3600)
+        let request = URLRequest(url: url!, cachePolicy: .returnCacheDataElseLoad, timeoutInterval: 100)
         
         let session = URLSession.shared
         
@@ -159,5 +159,6 @@ extension RequestManager {
         
         let urlSting = RequestConstant.RequestURL + cityID
         baseRequest(urlSting, receiveHander)
+        print("请求URL = \(urlSting)")
     }
 }

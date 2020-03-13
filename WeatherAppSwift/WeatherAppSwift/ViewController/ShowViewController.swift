@@ -19,10 +19,17 @@ class ShowViewController: UIViewController {
         return btn
     }()
     
-    var textView: UITextView = {
-        let newView = UITextView(frame: CGRect(x: 10, y: 200, width: 200, height: 100))
+    var textView: UILabel = {
+        let newView = UILabel(frame: CGRect(x: 20, y: 100, width: DefineConst.WScreen - 40, height: 300))
+        newView.font = UIFont.italicSystemFont(ofSize: 20)
+        newView.textAlignment = .center
+        newView.lineBreakMode = .byCharWrapping
+        newView.numberOfLines = 0
         newView.text = DefineConst.TestString.TestUITextViewContent
-        newView.backgroundColor = .yellow
+        newView.backgroundColor = .white
+        newView.layer.cornerRadius = 20
+        newView.layer.borderWidth = 0.5
+        newView.layer.borderColor = UIColor.lightGray.cgColor
         return newView
     }()
     
@@ -35,15 +42,15 @@ class ShowViewController: UIViewController {
     
     func configData() {
         
+        
         if WeathTool.haveDefaultCityCode() {
             let cityCode = WeathTool.defaultCityCode()
             requestData(cityCode)
         }
         else {
             // 默认城市plist第一个
-            let path = Bundle.main.path(forResource: "cityCode", ofType: "plist")
-            let plist = NSArray(contentsOfFile: path!) as? [NSDictionary]
-            let cityCode = (plist?.first!["city_code"] as! NSNumber).description
+            let plist = CityPlistManger.shared.plist
+            let cityCode = (plist.first?["city_code"] as! NSNumber).description
             WeathTool.saveDefaultCityCode(String(cityCode))
             requestData(cityCode)
         }
@@ -58,13 +65,42 @@ class ShowViewController: UIViewController {
     }
 }
 
-// 事件处理
+// MARK: 内部函数
+extension ShowViewController {
+    
+    private func formatCityInfoForString(_ model: CityDetailData) -> String {
+        
+        var showString = ""
+        
+        guard let todayWeath = model.data.forecast.first else {
+            return showString
+        }
+        
+        showString.append("\(model.cityInfo.city) \n")
+        showString.append("\(todayWeath.type) \n")
+        showString.append("温度：\(todayWeath.low) ~ \(todayWeath.high) \n")
+        showString.append("\(todayWeath.fx)  \(todayWeath.fl) \n")
+        showString.append("湿度：\(model.data.shidu)  污染：\(model.data.quality) \n")
+        showString.append("注意人群：\(model.data.ganmao) \n")
+        showString.append("\(todayWeath.notice) \n")
+        showString.append("数据更新时间：\(model.cityInfo.updateTime) \n")
+        
+        return showString
+    }
+    
+    private func refreshContent(_ model: CityDetailData) {
+        textView.text = formatCityInfoForString(model)
+    }
+}
+
+// MARK: 事件处理
 extension ShowViewController {
     
     @objc func onClickHandler(sender: UIButton) {
         
-        let detailViewController = DetailViewController()
-        navigationController?.pushViewController(detailViewController, animated: true)
+        let cityListViewController = DetailViewController()
+        cityListViewController.delegate = self
+        present(cityListViewController, animated: true, completion: nil)
     }
 }
 
@@ -73,10 +109,7 @@ extension ShowViewController {
 
     func requestData(_ cityID: String) {
         
-        LoadingManager.show()
         RequestManager.shared.cityWeathDetailRequest(cityID) { [weak self] (data, error) -> (Void) in
-            
-            LoadingManager.hide()
             
             guard let self = self else {
                 return
@@ -87,6 +120,7 @@ extension ShowViewController {
             }
             
             do {
+                print(try JSONSerialization.jsonObject(with: data!, options: .mutableLeaves))
                 let resultModel = try JSONDecoder().decode(CityDetailData.self, from: data!)
                 self.refreshContent(resultModel)
             }
@@ -95,22 +129,13 @@ extension ShowViewController {
             }
         }
     }
-    
-    func refreshContent(_ model: CityDetailData) {
-        textView.text = model.message
-    }
 }
 
 // Delegate
-extension ShowViewController: UITextFieldDelegate {
+extension ShowViewController: DetailViewControllerProtocol {
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
-    
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        CommentManager.shared.showCommentInputView()
-        return false
+    func selectedCity(code: String) {
+        WeathTool.saveDefaultCityCode(code)
+        requestData(code)
     }
 }

@@ -7,8 +7,7 @@
 //
 
 import UIKit
-import AVKit
-import SDWebImage
+import Kingfisher
 
 class PersonalViewController: UIViewController {
     
@@ -35,34 +34,7 @@ class PersonalViewController: UIViewController {
         view.addSubview(topImageView)
         view.addSubview(avplayerView)
         
-        topImageView.sd_setImage(with: URL(string: DefineConst.TestImageUrl)!, completed: nil)
-        
-//        DispatchQueue.global().async {
-//
-//            var image:UIImage?
-//            do {
-//                let data = try Data(contentsOf: URL(string: DefineConst.TestImageUrl)!)
-//                image = UIImage(data: data)
-//            }
-//            catch {
-//                fatalError()
-//            }
-//
-//            if (image != nil) {
-//                DispatchQueue.main.async {
-//                    self.topImageView.image = image
-//                }
-//            }
-//        }
-        
-//        guard let mp4Url = URL(string: DefineConst.TestMap4Url) else {
-//            fatalError()
-//        }
-//        let playerController = AVPlayer(url: mp4Url)
-//        let playerLayer = AVPlayerLayer(player: playerController)
-//        playerLayer.frame = avplayerView.bounds
-//        avplayerView.layer.addSublayer(playerLayer)
-//        playerController.play()
+        topImageView.kf.setImage(with: ImageResource(downloadURL: URL(string: DefineConst.TestImageUrl)!))
         
     }
 }
