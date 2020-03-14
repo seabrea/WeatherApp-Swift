@@ -5,7 +5,6 @@ target 'WeatherAppSwift' do
 
   use_frameworks!
 
-  pod 'SnapKit'
   pod 'Kingfisher'
 
   target 'WeatherAppSwiftTests' do
