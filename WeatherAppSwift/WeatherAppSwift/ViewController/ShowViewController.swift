@@ -49,8 +49,9 @@ class ShowViewController: UIViewController {
         }
         else {
             // 默认城市plist第一个
-            let plist = CityPlistManger.shared.plist
-            let cityCode = (plist.first?["city_code"] as! NSNumber).description
+             let path = Bundle.main.path(forResource: CityPlistDefain.plistName, ofType: CityPlistDefain.plistType)
+            let plist = NSArray(contentsOfFile: path!) as? [NSDictionary]
+            let cityCode = (plist?.first?["city_code"] as! NSNumber).description
             WeathTool.saveDefaultCityCode(String(cityCode))
             requestData(cityCode)
         }
@@ -80,10 +81,10 @@ extension ShowViewController {
         showString.append("\(todayWeath.type) \n")
         showString.append("温度：\(todayWeath.low) ~ \(todayWeath.high) \n")
         showString.append("\(todayWeath.fx)  \(todayWeath.fl) \n")
-        showString.append("湿度：\(model.data.shidu)  污染：\(model.data.quality) \n")
+        showString.append("湿度：\(model.data.shidu)  空气：\(model.data.quality) \n")
         showString.append("注意人群：\(model.data.ganmao) \n")
         showString.append("\(todayWeath.notice) \n")
-        showString.append("数据更新时间：\(model.cityInfo.updateTime) \n")
+        showString.append("数据更新时间：\(model.time) \n")
         
         return showString
     }

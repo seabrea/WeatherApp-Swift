@@ -16,8 +16,8 @@ import UIKit
 class DetailViewController: UIViewController {
 
     var tableView: UITableView!
-    var bannerData = ["home","personal"]
-    var dataSource: [NSDictionary]?
+    var dataSource: CityPlistManger.CityListType?
+    var sectionSource: [String]?
     
     weak var delegate: DetailViewControllerProtocol?
     
@@ -31,44 +31,58 @@ class DetailViewController: UIViewController {
         logDealloc(className: self.classForCoder)
     }
     
-    func configView() {
+
+}
+
+extension DetailViewController {
+    
+    private func configView() {
         
-        dataSource = CityPlistManger.shared.plist
+        sectionSource = CityPlistManger.shared.provinces
+        dataSource = CityPlistManger.shared.cities
         
-        tableView = UITableView(frame: view.bounds, style: .plain)
+        tableView = UITableView(frame: view.bounds, style: .grouped)
+        tableView.register(UITableViewCell.classForCoder(), forCellReuseIdentifier: "cell")
         tableView.delegate = self
         tableView.dataSource = self
-        let headerView = BannerScrollView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 200))
-        headerView.refreshUI(data: bannerData)
-        tableView.tableHeaderView = headerView
-        
         view.addSubview(tableView)
     }
 }
 
 extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return sectionSource?.count ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 20
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        
+        let sectionContent = sectionSource?[section]
+        let showString = sectionContent?.components(separatedBy: CharacterSet.whitespaces).first
+        return showString ?? " "
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dataSource?.count ?? 0
+        
+        let list = dataSource?[section]
+        return list?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if let cell = tableView.dequeueReusableCell(withIdentifier: "cell") {
-            let dic = dataSource?[indexPath.row]
-            cell.textLabel?.text = dic?["city_name"] as? String
-            cell.detailTextLabel?.text = dic?["city_code"] as? String
-            cell.imageView?.image = UIImage(named: "personal")
+            
+            let list = dataSource?[indexPath.section]
+            let dic = list?[indexPath.row]
+            cell.textLabel?.text = dic?.values.first
+            
             return cell
         }
-        else {
-            let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
-            let dic = dataSource?[indexPath.row]
-            cell.textLabel?.text = dic?["city_name"] as? String
-            cell.detailTextLabel?.text = dic?["city_code"] as? String
-            cell.imageView?.image = UIImage(named: "personal")
-            return cell
-        }
+        return UITableViewCell()
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -79,9 +93,10 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
         
         tableView.deselectRow(at: indexPath, animated: true)
         
-        let cityDic = dataSource?[indexPath.row]
+        let list = dataSource?[indexPath.section]
+        let dic = list?[indexPath.row]
         
-        guard let cityCode = (cityDic?["city_code"] as? NSNumber)?.stringValue else {
+        guard let cityCode = dic?.keys.first else {
             return
         }
         

@@ -9,19 +9,28 @@
 import Foundation
 
 enum CityPlistDefain {
-      static let plistName: String = "cityCode"
-      static let plistType: String = "plist"
-  }
+    static let plistName: String = "cityCode"
+    static let plistType: String = "plist"
+}
 
 struct CityPlistManger {
     
     static let shared = CityPlistManger()
     
-    private var plistList:[NSDictionary]?
+    typealias CityListType = [[[String : String]]]
     
-    public var plist: [NSDictionary] {
+    private var cityList = CityListType()
+    private var provinceList = [String]()
+    
+    public var cities: CityListType {
         get {
-            return plistList ?? []
+            return cityList
+        }
+    }
+    
+    public var provinces: [String] {
+        get {
+            return provinceList
         }
     }
     
@@ -31,6 +40,45 @@ struct CityPlistManger {
     
     private mutating func configData() {
         let path = Bundle.main.path(forResource: CityPlistDefain.plistName, ofType: CityPlistDefain.plistType)
-        plistList = NSArray(contentsOfFile: path!) as? [NSDictionary]
+        
+        guard let plistList = NSArray(contentsOfFile: path!) as? [NSDictionary] else {
+            fatalError()
+        }
+        
+        for item in plistList {
+
+            let pid = (item["pid"] as! NSNumber).intValue
+            if pid == 0 {
+                let name = item.value(forKey: "city_name") as! String
+                let id = (item.value(forKey: "id") as! NSNumber).stringValue
+                let newValue = "\(name) \(id)"
+                provinceList.append(newValue)
+            }
+        }
+        
+        for province in provinceList {
+            
+            let pid = province.components(separatedBy: CharacterSet.whitespaces).last
+            var itemList = [[String : String]]()
+            
+            for item in plistList {
+                
+                if (item["city_code"] as? NSNumber) != nil {
+                    
+                    let hasPID = ((item["pid"] as! NSNumber).intValue != 0)
+                    let itemPID = hasPID ? (item["pid"] as! NSNumber).stringValue : (item["id"] as! NSNumber).stringValue
+                    
+                    if pid == itemPID {
+                        
+                        let cityCode = (item["city_code"] as! NSNumber).stringValue
+                        let cityName = item["city_name"] as! String
+                        let newDic = [cityCode : cityName]
+                        itemList.append(newDic)
+                    }
+                }
+            }
+            
+            cityList.append(itemList)
+        }
     }
 }
