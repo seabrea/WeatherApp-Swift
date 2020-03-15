@@ -22,6 +22,11 @@ enum DefineConst {
     enum TestString {
         static let TestUITextViewContent = "红红火火恍恍惚惚，红红火火恍恍惚惚，红红火火恍恍惚惚，红红火火恍恍惚惚，红红火火恍恍惚惚，红红火火恍恍惚惚，红红火火恍恍惚惚，红红火火恍恍惚惚，红红火火恍恍惚惚，红红火火恍恍惚惚，红红火火恍恍惚惚，红红火火恍恍惚惚"
     }
+    
+    enum AssetsName {
+        static let PersonalImageName = "personal"
+        static let HomeImageName     = "home"
+    }
 }
 
 class WeathTool {
