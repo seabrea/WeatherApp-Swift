@@ -10,10 +10,23 @@ import UIKit
 
 class ShowViewController: UIViewController {
     
+    let searchBtnTag: Int = 10000
+    let sevendBtnTag: Int = 10001
+    
+    var forecastList: [Forecast] = [Forecast]()
+    
     var searchButton: UIButton = {
-        let btn = UIButton(frame: CGRect(x: DefineConst.WScreen/2 - 100, y: DefineConst.HScreen/2 + 100, width: 200, height: 50))
+        let btn = UIButton(frame: CGRect(x: DefineConst.WScreen/2 - 100, y: 600, width: 200, height: 50))
         btn.setTitle("点击查看更多城市", for: .normal)
         btn.setTitle("松开跳转城市选择", for: .highlighted)
+        btn.backgroundColor = .lightGray
+        btn.layer.cornerRadius = 20
+        return btn
+    }()
+    
+    var sevendaysWeatherButton: UIButton = {
+        let btn = UIButton(frame: CGRect(x: DefineConst.WScreen/2 - 100, y: 500, width: 200, height: 50))
+        btn.setTitle("未来七天的天气", for: .normal)
         btn.backgroundColor = .lightGray
         btn.layer.cornerRadius = 20
         return btn
@@ -59,7 +72,13 @@ class ShowViewController: UIViewController {
     
     func configView() {
         
+        searchButton.tag = searchBtnTag
+        sevendaysWeatherButton.tag = sevendBtnTag
+        
         view.addSubview(searchButton)
+        view.addSubview(sevendaysWeatherButton)
+        
+        sevendaysWeatherButton.addTarget(self, action: #selector(onClickHandler(sender:)), for: .touchUpInside)
         searchButton.addTarget(self, action: #selector(onClickHandler(sender:)), for: .touchUpInside)
         
         view.addSubview(textView)
@@ -99,9 +118,17 @@ extension ShowViewController {
     
     @objc func onClickHandler(sender: UIButton) {
         
-        let cityListViewController = DetailViewController()
-        cityListViewController.delegate = self
-        present(cityListViewController, animated: true, completion: nil)
+        let tag = sender.tag
+        
+        if tag == searchBtnTag {
+            let cityListViewController = DetailViewController()
+            cityListViewController.delegate = self
+            present(cityListViewController, animated: true, completion: nil)
+        }
+        else if tag == sevendBtnTag {
+            let cityListViewController = CollectionViewController.create(with: forecastList)
+            present(cityListViewController, animated: true, completion: nil)
+        }
     }
 }
 
@@ -123,6 +150,9 @@ extension ShowViewController {
             do {
                 print(try JSONSerialization.jsonObject(with: data!, options: .mutableLeaves))
                 let resultModel = try JSONDecoder().decode(CityDetailData.self, from: data!)
+                self.forecastList.removeAll()
+                self.forecastList.append(resultModel.data.yesterday)
+                self.forecastList.append(contentsOf: resultModel.data.forecast)
                 self.refreshContent(resultModel)
             }
             catch {

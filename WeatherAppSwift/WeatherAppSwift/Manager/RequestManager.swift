@@ -121,7 +121,7 @@ extension RequestManager {
         
         let url = URL(string: urlString)
         
-        let request = URLRequest(url: url!, cachePolicy: .returnCacheDataElseLoad, timeoutInterval: 100)
+        let request = URLRequest(url: url!, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 60)
         
         let session = URLSession.shared
         
